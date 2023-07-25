@@ -1,8 +1,32 @@
 <div *ngIf="conversation">
-    <h2>{{conversation.subject }}</h2>
-    <div>id: {{conversation.id}}</div>
-    <div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="conversation.subject" placeholder="Subject">
+    <div class="conversation_chat_section">
+        <div class="conversation_chat_section_header">
+            <h3>{{ conversation.subject }}</h3>
+            <p>{{ conversation.address }}</p>
+            <ul>
+                <ng-container *ngFor="let user of conversation.users">
+                <li *ngIf="!user.is_current_user">
+                    <p>{{ user.fullname }}</p>
+                </li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="conversation_chat_section_body">
+            <!-- HERE LIVES THE CHAT -->
+        </div>
     </div>
-</div>
+    <div class="conversation_info_section">
+        <h3>Info:</h3>
+        <p>{{ conversation.address }}</p>
+        <ul>
+          <ng-container *ngFor="let user of conversation.users">
+            <li *ngIf="!user.is_current_user">
+                <img src="{{ user.photo }}" alt="{{ user.fullname }}">
+                <p>{{ user.fullname }}</p>
+                <p>{{ user.email }}</p>
+                <p>{{ user.description }}</p>
+            </li>
+          </ng-container>
+        </ul>
+    </div>
+  </div>

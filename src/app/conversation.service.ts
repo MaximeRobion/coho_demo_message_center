@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Conversation } from './models';
-import { CONVERSATIONS } from './mock-conversations';
+import { CONVERSATIONS } from './mocks';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ConversationService {
   constructor() { }
 
