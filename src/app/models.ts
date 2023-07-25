@@ -13,3 +13,18 @@ export interface Conversation {
     address: string;
     users: User[];
 }
+
+export interface Notification {
+  id: number;
+  conversation: Conversation;
+  content: string;
+  created_at: Date;
+}
+
+export interface Message {
+  id: number;
+  conversation: Conversation;
+  user_id: number;
+  content: string;
+  created_at: Date;
+}

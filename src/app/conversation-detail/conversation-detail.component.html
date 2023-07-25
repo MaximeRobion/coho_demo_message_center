@@ -12,7 +12,11 @@
             </ul>
         </div>
         <div class="conversation_chat_section_body">
-            <!-- HERE LIVES THE CHAT -->
+            <app-conversation-chatbox
+                [conversation]="conversation"
+                [notifications]="NOTIFICATIONS"
+                [messages]="MESSAGES"
+                ></app-conversation-chatbox>
         </div>
     </div>
     <div class="conversation_info_section">

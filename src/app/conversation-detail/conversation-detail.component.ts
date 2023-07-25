@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Conversation } from '../models';
+import { MESSAGES, NOTIFICATIONS } from '../mocks';
 
 @Component({
   selector: 'app-conversation-detail',
@@ -8,4 +9,6 @@ import { Conversation } from '../models';
 })
 export class ConversationDetailComponent {
   @Input() conversation?: Conversation;
+  MESSAGES = MESSAGES;
+  NOTIFICATIONS = NOTIFICATIONS;
 }

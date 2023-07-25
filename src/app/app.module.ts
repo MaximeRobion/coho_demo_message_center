@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConversationsComponent } from './conversations/conversations.component';
 import { ConversationDetailComponent } from './conversation-detail/conversation-detail.component';
+import { ConversationChatboxComponent } from './conversation-chatbox/conversation-chatbox.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConversationsComponent,
     ConversationDetailComponent,
+    ConversationChatboxComponent,
   ],
   imports: [
     BrowserModule,
