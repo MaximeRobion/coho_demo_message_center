@@ -1,0 +1,12 @@
+<h2>My Conversations</h2>
+<ul class="conversations">
+    <li *ngFor="let conversation of conversations">
+    <button [class.selected]="conversation === selectedConversation" type="button" type="button" (click)="onSelect(conversation)">
+      <span class="subject">{{conversation.subject}}</span>
+      <span class="address">{{conversation.address}}</span>
+    </button>
+  </li>
+</ul>
+
+<app-conversation-detail [conversation]="selectedConversation"></app-conversation-detail>
+
