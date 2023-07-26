@@ -1,13 +1,13 @@
 <div class="conversations_list">
 <header class="conversation_list_header">
     <div class="new_conversation">
-        <button mat-raised-button color="primary">New conversation</button>
+        <button mat-raised-button color="primary" class="mat-typography">New conversation</button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
             <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item>View broadcast messages</button>
-            <button mat-menu-item>View archived conversations</button>
+        <mat-menu #menu="matMenu" xPosition="before" class="mat-typography">
+            <button mat-menu-item class="mat-typography">View broadcast messages</button>
+            <button mat-menu-item class="mat-typography">View archived conversations</button>
         </mat-menu>
     </div>
     <div class="filters">

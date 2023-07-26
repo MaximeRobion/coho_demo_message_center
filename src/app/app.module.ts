@@ -17,6 +17,7 @@ import { ConversationsComponent } from './conversations/conversations.component'
 import { ConversationDetailComponent } from './conversation-detail/conversation-detail.component';
 import { ConversationChatboxComponent } from './conversation-chatbox/conversation-chatbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     NgFor,
     MatListModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

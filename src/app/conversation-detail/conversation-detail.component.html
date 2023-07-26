@@ -10,14 +10,14 @@
                 </span>
             </div>
             <div class="conversation_chat_header_menu">
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu" class="mat-typography">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item>See info</button>
-                    <button mat-menu-item>Mark unread</button>
-                    <button mat-menu-item>Archive conversation</button>
-                    <button mat-menu-item>Mute conversation</button>
+                <mat-menu #menu="matMenu" xPosition="before" class="mat-typography">
+                    <button mat-menu-item class="mat-typography">See info</button>
+                    <button mat-menu-item class="mat-typography">Mark unread</button>
+                    <button mat-menu-item class="mat-typography">Archive conversation</button>
+                    <button mat-menu-item class="mat-typography">Mute conversation</button>
                 </mat-menu>
             </div>
         </div>
@@ -27,17 +27,38 @@
                 ></app-conversation-chatbox>
     </div>
     <div class="conversation_info">
-        <h3>Info:</h3>
-        <p>{{ conversation.address }}</p>
-        <ul>
-          <ng-container *ngFor="let user of conversation.users">
-            <li *ngIf="!user.is_current_user">
-                <img src="{{ user.photo }}" alt="{{ user.fullname }}">
-                <p>{{ user.fullname }}</p>
-                <p>{{ user.email }}</p>
-                <p>{{ user.description }}</p>
-            </li>
-          </ng-container>
-        </ul>
+        <div class="conversation_info_header">
+            <p>Information</p>
+        </div>
+        <div class="conversation_address">
+            <mat-icon>home</mat-icon>
+            <a href="#">{{ conversation.address }}</a>
+        </div>
+        <mat-expansion-panel class="users_info mat-elevation-z0">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="expansion_header mat-typography">
+
+                <mat-icon>group</mat-icon>
+                <div class="expansion_panel_users">
+                    <ng-container *ngFor="let user of conversation.users; let lastUser = last" class="mat-typography">
+                        <span *ngIf="!user.is_current_user">{{ user.fullname }}</span>
+                        <span *ngIf="!user.is_current_user && !lastUser">, </span>
+                    </ng-container>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+                <ng-container *ngFor="let user of conversation.users">
+                  <div *ngIf="!user.is_current_user" class="profile">
+                      <img src="{{ user.photo }}" alt="{{ user.fullname }}">
+                      <div class="profile_description mat-typography">
+                        <div class="name_and_email">
+                            <span class="fullname">{{ user.fullname }}</span>
+                            <span class="email">{{ user.email }}</span>
+                        </div>
+                        <span class="desc">{{ user.description }}</span>
+                        </div>
+                    </div>
+                </ng-container>
+        </mat-expansion-panel>
     </div>
   </div>
