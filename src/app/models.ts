@@ -19,7 +19,7 @@ export interface Conversation {
 export interface Message {
   id: number;
   conversation_id: number;
-  user_id: number;
+  user_id: number | null;
   content: string;
   created_at: Date;
 }

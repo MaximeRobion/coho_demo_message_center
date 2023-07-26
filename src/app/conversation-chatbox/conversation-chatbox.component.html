@@ -1,18 +1,30 @@
-<div *ngIf="conversation">
-    <div class="chat">
-        <div>
-            <h3>Messages:</h3>
-            <ul>
-              <li *ngFor="let message of conversation.messages">
-                {{ message.content }}
-                {{ message.created_at | date:'shortTime' }}
-              </li>
-            </ul>
-          </div>
-    </div>
-    <div class="chat-form">
-        <form>
-            <input type="text" placeholder="Type your message here...">
-            <button type="submit">Send</button>
-    </form>
+<div class="chat_box">
+            <div
+                *ngFor="let message of conversation?.messages"
+                [ngClass]="{
+                    'message': true,
+                    'current_user': findUserById(message.user_id)?.is_current_user,
+                    'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
+                    'no_user': message.user_id === null
+                  }"
+            >
+                <div [ngClass]="{
+                    'message_content': true,
+                    'current_user': findUserById(message.user_id)?.is_current_user,
+                    'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
+                    'no_user': message.user_id === null
+                  }">
+                    <span>{{ message.content }}</span>
+                    <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
+                </div>
+            </div>
 </div>
+<form class="send_message">
+    <mat-icon aria-hidden="false" aria-label="file" fontIcon="attach_file"></mat-icon>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Type your message here...">
+    </mat-form-field>
+    <button mat-icon-button aria-label="send" type="submit">
+        <mat-icon>send</mat-icon>
+    </button>
+</form>

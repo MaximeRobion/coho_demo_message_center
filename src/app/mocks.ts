@@ -31,6 +31,13 @@ export const MESSAGES: Message[] = [
   {
     id: 1,
     conversation_id:1,
+    user_id: null,
+    content: 'Zachery (zach*****@gmail.com) was invited to a viewing',
+    created_at: new Date('2023-07-25 10:00:00'),
+  },
+  {
+    id: 2,
+    conversation_id:1,
     user_id: 1,
     content: 'Hey, how are you?',
     created_at: new Date('2023-07-25 10:30:00'),
@@ -56,6 +63,20 @@ export const MESSAGES: Message[] = [
     content: '16h is fine for me!',
     created_at: new Date('2023-07-25 15:30:00'),
   },
+  {
+    id: 5,
+    conversation_id:1,
+    user_id: null,
+    content: 'Date proposed: 16 July 2023 at 4:00 PM',
+    created_at: new Date('2023-07-25 15:35:00'),
+  },
+  {
+    id: 6,
+    conversation_id:1,
+    user_id: null,
+    content: 'Date accepted: 16 July 2023 at 4:00 PM',
+    created_at: new Date('2023-07-25 15:36:00'),
+  },
 ];
 
 export const CONVERSATIONS: Conversation[] = [
@@ -64,7 +85,7 @@ export const CONVERSATIONS: Conversation[] = [
       subject: 'Viewing Unit 1',
       address: '123 Main St, London',
       users: [USERS[0], USERS[1]],
-      messages: [MESSAGES[0], MESSAGES[1], MESSAGES[2], MESSAGES[3]],
+      messages: [MESSAGES[0], MESSAGES[1], MESSAGES[2], MESSAGES[3], MESSAGES[4], MESSAGES[5], MESSAGES[6]],
       is_unread: true,
     },
     {

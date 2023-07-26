@@ -25,4 +25,20 @@ export class ConversationsComponent {
   ngOnInit(): void {
     this.getConversations();
   }
+
+  LastMessage(conversation: Conversation): string {
+    if (conversation.messages.length > 0) {
+      const LastMessage = conversation.messages[conversation.messages.length - 1];
+      return LastMessage.content;
+    }
+    return "";
+  }
+
+  LastMessageDate(conversation: Conversation): Date | null {
+    if (conversation.messages.length > 0) {
+      const LastMessage = conversation.messages[conversation.messages.length - 1];
+      return LastMessage.created_at;
+    }
+    return null;
+  }
 }

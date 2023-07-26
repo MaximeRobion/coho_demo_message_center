@@ -1,12 +1,36 @@
-<h2>My Conversations</h2>
-<ul class="conversations">
-    <li *ngFor="let conversation of conversations">
+<div class="conversations_list">
+<header class="conversation_list_header">
+    <div class="new_conversation">
+        <button mat-raised-button color="primary">New conversation</button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>View broadcast messages</button>
+            <button mat-menu-item>View archived conversations</button>
+        </mat-menu>
+    </div>
+    <div class="filters">
+        <p>Filters</p>
+    </div>
+</header>
+<ul>
+    <li *ngFor="let conversation of conversations" class="conversation_preview">
     <button [class.selected]="conversation === selectedConversation" type="button" type="button" (click)="onSelect(conversation)">
-      <span class="subject">{{conversation.subject}}</span>
-      <span class="address">{{conversation.address}}</span>
+        <div class="conversation_preview_title_and_address">
+            <span class="subject">{{conversation.subject}}</span>
+            <span class="address">{{conversation.address}} (<ng-container *ngFor="let user of conversation.users; let lastUser = last">
+                <span *ngIf="!user.is_current_user">{{ user.fullname }}</span>
+                <span *ngIf="!user.is_current_user && !lastUser">, </span>
+            </ng-container>)
+            </span>
+        </div>
+
+        <div class="conversation_preview_time">
+            <span class="last_message_date">{{LastMessageDate(conversation) | date: 'shortTime'}}</span>
+        </div>
     </button>
   </li>
 </ul>
-
-<app-conversation-detail [conversation]="selectedConversation"></app-conversation-detail>
-
+</div>
+<app-conversation-detail [conversation]="selectedConversation" class="conversation_details"></app-conversation-detail>

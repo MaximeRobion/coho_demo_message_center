@@ -4,3 +4,70 @@ img {
     border-radius: 50%;
     object-fit: cover;
 }
+
+.conversation_chat {
+    display: flex;
+    width: 600px;
+    height: 620px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    border: 1px solid #F4F4F4;
+}
+
+.conversation_info {
+    display: flex;
+    width: 400px;
+    height: 620px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    border-radius: 0px 8px 8px 0px;
+    border: 1px solid #F4F4F4;
+}
+
+.conversation_details {
+    display: flex;
+    align-items: flex-start;
+    gap: 1px;
+}
+
+.conversation_chat_header {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    background: #F4F4F4;
+}
+
+.conversation_preview_title_and_address {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.conversation_preview_title_and_address .subject {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.conversation_preview_title_and_address .address {
+    color: #525252;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.conversation_chat_body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+}

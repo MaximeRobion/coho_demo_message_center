@@ -1,23 +1,32 @@
-<div *ngIf="conversation">
-    <div class="conversation_chat_section">
-        <div class="conversation_chat_section_header">
-            <h3>{{ conversation.subject }}</h3>
-            <p>{{ conversation.address }}</p>
-            <ul>
-                <ng-container *ngFor="let user of conversation.users">
-                <li *ngIf="!user.is_current_user">
-                    <p>{{ user.fullname }}</p>
-                </li>
-                </ng-container>
-            </ul>
+<div class="conversation_details" *ngIf="conversation">
+    <div class="conversation_chat">
+        <div class="conversation_chat_header">
+            <div class="conversation_preview_title_and_address">
+                <span class="subject">{{conversation.subject}}</span>
+                <span class="address">{{conversation.address}} (<ng-container *ngFor="let user of conversation.users; let lastUser = last">
+                    <span *ngIf="!user.is_current_user">{{ user.fullname }}</span>
+                    <span *ngIf="!user.is_current_user && !lastUser">, </span>
+                </ng-container>)
+                </span>
+            </div>
+            <div class="conversation_chat_header_menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item>See info</button>
+                    <button mat-menu-item>Mark unread</button>
+                    <button mat-menu-item>Archive conversation</button>
+                    <button mat-menu-item>Mute conversation</button>
+                </mat-menu>
+            </div>
         </div>
-        <div class="conversation_chat_section_body">
-            <app-conversation-chatbox
+        <app-conversation-chatbox
                 [conversation]="conversation"
+                class="conversation_chat_body"
                 ></app-conversation-chatbox>
-        </div>
     </div>
-    <div class="conversation_info_section">
+    <div class="conversation_info">
         <h3>Info:</h3>
         <p>{{ conversation.address }}</p>
         <ul>
