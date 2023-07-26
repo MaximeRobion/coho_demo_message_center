@@ -1,21 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap');
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    font-family: 'Mulish', sans-serif;
-}
-
-ul, li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .conversations_list{
     /* Layout */
     display: flex;
