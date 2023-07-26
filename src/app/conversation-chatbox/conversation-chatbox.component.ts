@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Conversation, Notification, Message } from '../models';
+import { Conversation, Message } from '../models';
 
 @Component({
   selector: 'app-conversation-chatbox',
@@ -8,6 +8,5 @@ import { Conversation, Notification, Message } from '../models';
 })
 export class ConversationChatboxComponent {
   @Input() conversation?: Conversation;
-  @Input() notifications: Notification[] = [];
   @Input() messages: Message[] = [];
 }

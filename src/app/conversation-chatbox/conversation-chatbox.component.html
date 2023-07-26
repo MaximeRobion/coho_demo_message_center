@@ -1,17 +1,11 @@
 <div *ngIf="conversation">
     <div class="chat">
         <div>
-            <h3>Notifications:</h3>
-            <ul>
-              <li *ngFor="let notification of notifications">
-                {{ notification.content }}
-              </li>
-            </ul>
-
             <h3>Messages:</h3>
             <ul>
-              <li *ngFor="let message of messages">
+              <li *ngFor="let message of conversation.messages">
                 {{ message.content }}
+                {{ message.created_at | date:'shortTime' }}
               </li>
             </ul>
           </div>

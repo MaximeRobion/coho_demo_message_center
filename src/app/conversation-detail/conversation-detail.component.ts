@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Conversation } from '../models';
-import { MESSAGES, NOTIFICATIONS } from '../mocks';
+import { Message } from '../models';
 
 @Component({
   selector: 'app-conversation-detail',
@@ -9,6 +9,5 @@ import { MESSAGES, NOTIFICATIONS } from '../mocks';
 })
 export class ConversationDetailComponent {
   @Input() conversation?: Conversation;
-  MESSAGES = MESSAGES;
-  NOTIFICATIONS = NOTIFICATIONS;
-}
+  @Input() messages: Message[] = [];
+  }
