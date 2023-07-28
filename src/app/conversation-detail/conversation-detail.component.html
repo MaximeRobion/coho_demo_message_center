@@ -1,64 +1,47 @@
-<div class="conversation_details" *ngIf="conversation">
+<div *ngIf="conversation; else emptyState" class="conversation_details">
     <div class="conversation_chat">
-        <div class="conversation_chat_header">
-            <div class="conversation_preview_title_and_address">
-                <span class="subject">{{conversation.subject}}</span>
-                <span class="address">{{conversation.address}} (<ng-container *ngFor="let user of conversation.users; let lastUser = last">
-                    <span *ngIf="!user.is_current_user">{{ user.fullname }}</span>
-                    <span *ngIf="!user.is_current_user && !lastUser">, </span>
-                </ng-container>)
-                </span>
-            </div>
-            <div class="conversation_chat_header_menu">
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu" class="mat-typography">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" xPosition="before" class="mat-typography">
-                    <button mat-menu-item class="mat-typography">See info</button>
-                    <button mat-menu-item class="mat-typography">Mark unread</button>
-                    <button mat-menu-item class="mat-typography">Archive conversation</button>
-                    <button mat-menu-item class="mat-typography">Mute conversation</button>
-                </mat-menu>
-            </div>
-        </div>
-        <app-conversation-chatbox
-                [conversation]="conversation"
-                class="conversation_chat_body"
-                ></app-conversation-chatbox>
+        <mat-toolbar>
+            <span>{{conversation.subject}}</span>
+            <span class="spacer"></span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu" class="mat-typography">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before" class="mat-typography">
+                <button mat-menu-item class="mat-typography">See info</button>
+                <button mat-menu-item class="mat-typography">Mark unread</button>
+                <button mat-menu-item class="mat-typography">Archive conversation</button>
+                <button mat-menu-item class="mat-typography">Mute conversation</button>
+            </mat-menu>
+        </mat-toolbar>
+        <app-conversation-chatbox [conversation]="conversation" class="conversation_chat_body"></app-conversation-chatbox>
     </div>
     <div class="conversation_info">
-        <div class="conversation_info_header">
-            <p>Information</p>
-        </div>
-        <div class="conversation_address">
-            <mat-icon>home</mat-icon>
-            <a href="#">{{ conversation.address }}</a>
-        </div>
-        <mat-expansion-panel class="users_info mat-elevation-z0">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="expansion_header mat-typography">
-
-                <mat-icon>group</mat-icon>
-                <div class="expansion_panel_users">
-                    <ng-container *ngFor="let user of conversation.users; let lastUser = last" class="mat-typography">
-                        <span *ngIf="!user.is_current_user">{{ user.fullname }}</span>
-                        <span *ngIf="!user.is_current_user && !lastUser">, </span>
-                    </ng-container>
-                </div>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-                <ng-container *ngFor="let user of conversation.users">
-                  <div *ngIf="!user.is_current_user" class="profile">
-                      <img src="{{ user.photo }}" alt="{{ user.fullname }}">
-                      <div class="profile_description mat-typography">
-                        <div class="name_and_email">
-                            <span class="fullname">{{ user.fullname }}</span>
-                            <span class="email">{{ user.email }}</span>
-                        </div>
-                        <span class="desc">{{ user.description }}</span>
-                        </div>
-                    </div>
-                </ng-container>
-        </mat-expansion-panel>
-    </div>
+        <mat-toolbar>
+            <span>Information</span>
+        </mat-toolbar>
+        <mat-nav-list>
+            <mat-list-item>
+                <mat-icon matListItemIcon>home</mat-icon>
+                <a matListItemTitle href="#">{{ conversation.address }}</a>
+            </mat-list-item>
+        </mat-nav-list>
+        <mat-list>
+            <mat-list-item *ngFor="let user of excludeCurrentUser(conversation.users)">
+                <img matListItemAvatar src="{{ user.photo }}" alt="{{ user.fullname }}">
+                <span matListItemTitle>{{ user.fullname }}</span>
+                <span matListItemLine>{{ user.email }}</span>
+                <button mat-icon-button matListItemMeta>
+                    <mat-icon>info</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
   </div>
+</div>
+<ng-template #emptyState>
+    <div class="conversation_details">
+        <div class="empty_state">
+            <h1 class="mat-typography">No conversation selected.</h1>
+            <p class="mat-typography">Select a conversation or create a new one.</p>
+        </div>
+    </div>
+</ng-template>

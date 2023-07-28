@@ -5,12 +5,12 @@ import { ConversationService } from '../conversation.service';
 @Component({
   selector: 'app-conversations',
   templateUrl: './conversations.component.html',
-  styleUrls: ['./conversations.component.css']
+  styleUrls: ['./conversations.component.scss']
 })
 export class ConversationsComponent {
   conversations: Conversation[] = [];
-
   selectedConversation?: Conversation;
+
   onSelect(conversation: Conversation): void {
     this.selectedConversation = conversation;
   }
@@ -40,5 +40,9 @@ export class ConversationsComponent {
       return LastMessage.created_at;
     }
     return null;
+  }
+
+  excludeCurrentUser(users: any[]): any[] {
+    return users.filter((user) => !user.is_current_user);
   }
 }

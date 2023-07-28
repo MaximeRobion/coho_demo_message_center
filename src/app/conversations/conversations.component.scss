@@ -1,14 +1,16 @@
-.conversations_list{
-    /* Layout */
+.conversation_container {
     display: flex;
-    width: 438px;
-    height: 620px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    height: 80%;
+}
+
+.conversations_list{
+    display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* Style */
-    border-radius: 8px 0px 0px 8px;
-    border: 1px solid #F4F4F4;
+    max-width: 300px;
 }
 
 .conversation_list_header {
@@ -121,4 +123,12 @@ ul {
     display: flex;
     align-items: flex-start;
     gap: 1px;
+}
+
+.mat-mdc-list-base {
+    width: 100%;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }

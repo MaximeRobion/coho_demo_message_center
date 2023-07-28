@@ -10,6 +10,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatLineModule } from '@angular/material/core';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +22,6 @@ import { ConversationsComponent } from './conversations/conversations.component'
 import { ConversationDetailComponent } from './conversation-detail/conversation-detail.component';
 import { ConversationChatboxComponent } from './conversation-chatbox/conversation-chatbox.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     NgFor,
     MatListModule,
     MatExpansionModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatLineModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

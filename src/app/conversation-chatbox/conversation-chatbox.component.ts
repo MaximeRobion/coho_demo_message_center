@@ -4,7 +4,7 @@ import { Conversation, Message, User } from '../models';
 @Component({
   selector: 'app-conversation-chatbox',
   templateUrl: './conversation-chatbox.component.html',
-  styleUrls: ['./conversation-chatbox.component.css']
+  styleUrls: ['./conversation-chatbox.component.scss']
 })
 export class ConversationChatboxComponent {
   @Input() conversation?: Conversation;
@@ -16,4 +16,9 @@ export class ConversationChatboxComponent {
     }
     return this.conversation?.users.find(user => user.id === userId);
   }
+
+    // Method to check if the conversation is one-on-one
+    isOneOnOneChat(conversation: Conversation): boolean {
+      return conversation.users.length === 2;
+    }
 }
