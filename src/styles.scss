@@ -1,0 +1,67 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Angular Material Setup
+// Typography https://medium.com/@bogac/customization-of-an-angular-material-2-theme-typography-components-3ca5584f36ca
+
+$typography-config: mat.define-typography-config(
+  $font-family: 'Mulish',
+  $button: mat.define-typography-level(16px, 20px, 600),
+  $headline-5: mat.define-typography-level(32px, 40px, 800),
+);
+
+@include mat.typography-hierarchy($typography-config);
+
+// Color palette
+$angular-primary: mat.define-palette(mat.$indigo-palette);
+$angular-accent: mat.define-palette(mat.$pink-palette);
+$angular-warn: mat.define-palette(mat.$red-palette);
+
+// Themes
+$angular-default-theme: mat.define-light-theme((
+  color: (
+    primary: $angular-primary,
+    accent: $angular-accent,
+    warn: $angular-warn,
+  ),
+  typography: $typography-config,
+  ));
+
+@include mat.all-component-themes($angular-default-theme);
+
+$angular-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $angular-primary,
+      accent: $angular-accent,
+      warn: $angular-warn,
+    ),
+    typography: $typography-config,
+  )
+);
+
+.dark-theme {
+  @include mat.all-component-colors($angular-dark-theme);
+}
+
+// Global styles
+
+html, body { height: 100%; }
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.mat-toolbar {
+    .spacer {
+      flex: 1;
+    }
+  }
+
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

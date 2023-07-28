@@ -2,6 +2,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.5.
 
+## A learning experience
+
+This is a learning project starting from the Message Centre of Coho.life, in order to get discover and get better at Angular.
+
+### Things I want to do
+[x] Mocking and Modeling
+[x] Angular Services
+[x] Angular Mat Theming and Components
+[x] Switch to Dark mode
+[ ] Mock http requests with angular-in-memory-web-api
+[ ] Use routing for mobile views
+[ ] Testing
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

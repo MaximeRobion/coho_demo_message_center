@@ -14,17 +14,26 @@
                     'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
                     'no_user': message.user_id === null
                   }">
-                    <span>{{ message.content }}</span>
-                    <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
+                    <span *ngIf="conversation
+                                && !isOneOnOneChat(conversation)
+                                && !findUserById(message.user_id)?.is_current_user"
+                                class="chat_username">
+                    {{findUserById(message.user_id)?.fullname}}</span>
+                    <div class="content_and_time">
+                        <span>{{ message.content }}</span>
+                        <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
+                    </div>
                 </div>
             </div>
 </div>
 <form class="send_message">
-    <mat-icon aria-hidden="false" aria-label="file" fontIcon="attach_file"></mat-icon>
-    <mat-form-field class="full-width mat-typography">
+    <mat-form-field class="full-width" appearance="outline">
+        <button mat-icon-button matPrefix>
+            <mat-icon>attach_file</mat-icon>
+        </button>
         <input matInput placeholder="Type your message here...">
+        <button mat-icon-button matSuffix>
+            <mat-icon>send</mat-icon>
+        </button>
     </mat-form-field>
-    <button mat-icon-button aria-label="send" type="submit">
-        <mat-icon>send</mat-icon>
-    </button>
 </form>

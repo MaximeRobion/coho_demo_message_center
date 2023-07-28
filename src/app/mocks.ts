@@ -77,6 +77,21 @@ export const MESSAGES: Message[] = [
     content: 'Date accepted: 16 July 2023 at 4:00 PM',
     created_at: new Date('2023-07-25 15:36:00'),
   },
+  {
+    id: 6,
+    conversation_id:3,
+    user_id: 3,
+    content: 'Hey! I am interested in your flat. When can I visit it?',
+    created_at: new Date('2023-07-27 09:36:00'),
+  },
+  {
+    id: 7,
+    conversation_id:3,
+    user_id: 1,
+    content: 'What would be the best for you? I am free this afternoon or tomorrow morning.',
+    created_at: new Date('2023-07-27 09:40:00'),
+  },
+
 ];
 
 export const CONVERSATIONS: Conversation[] = [
@@ -101,7 +116,7 @@ export const CONVERSATIONS: Conversation[] = [
       subject: 'Moving in',
       address: '53 rue de la Fraternité, Fontenay-sous-bois',
       users: [USERS[0], USERS[1], USERS[2]],
-      messages: [],
+      messages: [MESSAGES[7], MESSAGES[8]],
       is_unread: false,
     },
     {

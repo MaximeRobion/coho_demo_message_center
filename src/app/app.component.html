@@ -1,1 +1,8 @@
-<app-conversations class="main_container"></app-conversations>
+<mat-toolbar color="primary">
+    <p>Message Center</p>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="toggleTheme()">
+        <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+</mat-toolbar>
+<app-conversations class="main_container mat-app-background"></app-conversations>
