@@ -1,15 +1,16 @@
 .conversation_details {
     display: flex;
+    flex: 1;
     flex-direction: row;
-    width: 800px;
-    height: 80vh;
     align-items: flex-start;
+    justify-content: space-between;
+    height: calc(100vh - 64px);
 }
 
 .conversation_details .empty_state {
+    flex: 1;
     padding: 16px;
-    width: 100%;
-    height: 80vh;
+    height: calc(100vh - 64px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,23 +18,25 @@
 }
 
 .conversation_chat {
-    width: 500px;
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 64px);
 }
 
 .conversation_info {
     display: flex;
-    width: 300px;
-    height: 100%;
+    flex: 1;
+    height: calc(100vh - 64px);
     flex-direction: column;
     align-items: flex-start;
 }
 
 .conversation_chat_body {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
-    height: 100%;
 }
 
 .mat-mdc-list-base {

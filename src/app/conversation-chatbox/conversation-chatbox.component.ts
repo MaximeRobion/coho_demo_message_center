@@ -25,10 +25,11 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
       });
      }
 
+  // Preload messages from local data, then fetch and update latest messages from the server
   ngOnInit(): void {
     if (this.conversation) {
-      this.messages = this.conversation.messages; // Preload messages from local data
-      this.getMessages(); // Fetch and update latest messages from the server
+      this.messages = this.conversation.messages;
+      this.getMessages();
     }
   }
 
@@ -39,10 +40,12 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
     return this.conversation?.users.find(user => user.id === userId);
   }
 
+  // Used to determine if the current conversation is a one-on-one chat
   isOneOnOneChat(conversation: Conversation): boolean {
     return conversation.users.length === 2;
   }
 
+  // Add a message to the current conversation
   add(conversation: Conversation): void {
     if (this.messageForm.invalid) {
       return;
@@ -65,14 +68,16 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
     this.messageForm.reset();
     }
 
+  // OnChanges, clean the message array, load from association and then get the messages from the server
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['conversation']) {
+      this.messages = [];
+      this.messages = this.conversation.messages;
       this.getMessages();
     }
   }
 
   // Get the messages of the current conversation
-
   getMessages(): void {
     this.conversationService.getMessages(this.conversation.id)
       .subscribe(messages => {
