@@ -8,6 +8,7 @@ ul, li {
     height: 64vh;
     padding: 16px;
     gap: 16px;
+    overflow: scroll;
 }
 
 .send_message {
@@ -22,6 +23,11 @@ ul, li {
     display: flex;
     align-self: stretch;
 }
+
+.message:first-child {
+    margin-top: auto;
+}
+
 .message.no_user {
     justify-content: center;
     align-items: center;

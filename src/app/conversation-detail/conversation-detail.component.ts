@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Conversation } from '../models';
-import { Message } from '../models';
+import { Conversation, Message } from '../models';
 
 @Component({
   selector: 'app-conversation-detail',
@@ -14,4 +13,4 @@ export class ConversationDetailComponent {
   excludeCurrentUser(users: any[]): any[] {
     return users.filter((user) => !user.is_current_user);
   }
-  }
+}

@@ -11,20 +11,23 @@ export class ConversationsComponent {
   conversations: Conversation[] = [];
   selectedConversation?: Conversation;
 
-  onSelect(conversation: Conversation): void {
-    this.selectedConversation = conversation;
-  }
-
   constructor(private conversationService: ConversationService) { }
+
+  ngOnInit(): void {
+    this.getConversations();
+  }
 
   getConversations(): void {
     this.conversationService.getConversations()
         .subscribe(conversations => this.conversations = conversations);
   }
 
-  ngOnInit(): void {
-    this.getConversations();
+  onSelect(conversation: Conversation): void {
+    this.selectedConversation = conversation;
   }
+
+  // Get the date of the last message
+  // TODO: Listen to new messages and update this value
 
   LastMessage(conversation: Conversation): string {
     if (conversation.messages.length > 0) {

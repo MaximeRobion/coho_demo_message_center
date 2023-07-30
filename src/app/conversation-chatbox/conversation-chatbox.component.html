@@ -1,6 +1,6 @@
 <div class="chat_box">
             <div
-                *ngFor="let message of conversation?.messages"
+                *ngFor="let message of messages"
                 [ngClass]="{
                     'message': true,
                     'current_user': findUserById(message.user_id)?.is_current_user,
@@ -26,13 +26,24 @@
                 </div>
             </div>
 </div>
-<form class="send_message">
+<form
+    class="send_message"
+    [formGroup]="messageForm"
+    (ngSubmit)="add(conversation)">
     <mat-form-field class="full-width" appearance="outline">
         <button mat-icon-button matPrefix>
             <mat-icon>attach_file</mat-icon>
         </button>
-        <input matInput placeholder="Type your message here...">
-        <button mat-icon-button matSuffix>
+        <input
+            matInput id="new-message"
+            formControlName="content"
+            placeholder="Type your message here...">
+        <button
+            mat-icon-button
+            matSuffix
+            [disabled]="messageForm.invalid"
+            type="submit"
+            class="add-button">
             <mat-icon>send</mat-icon>
         </button>
     </mat-form-field>
