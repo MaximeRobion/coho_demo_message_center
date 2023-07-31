@@ -8,7 +8,7 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before" class="mat-typography">
                 <button mat-menu-item class="mat-typography">See info</button>
-                <button mat-menu-item class="mat-typography">Mark unread</button>
+                <button *ngIf="!conversation.is_unread" mat-menu-item class="mat-typography" (click)="markUnread(conversation)">Mark unread</button>
                 <button mat-menu-item class="mat-typography">Archive conversation</button>
                 <button mat-menu-item class="mat-typography">Mute conversation</button>
             </mat-menu>

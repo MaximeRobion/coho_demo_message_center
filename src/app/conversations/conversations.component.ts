@@ -28,6 +28,10 @@ export class ConversationsComponent implements OnInit {
 
   onSelect(conversation: Conversation): void {
     this.selectedConversation = conversation;
+    // if conversation.is_unread was true, pass it to false
+    if (conversation.is_unread) {
+      conversation.is_unread = false;
+    }
   }
 
   // TODO: Listen to new messages and update this value

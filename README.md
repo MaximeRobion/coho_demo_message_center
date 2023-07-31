@@ -13,8 +13,8 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Switch to Dark mode
 [x] Mock http requests with angular-in-memory-web-api
 [x] Create new message
+[x] Unread bubbles and mark unread
 [ ] Use routing for mobile views
-[ ] Unread bubbles and mark unread
 [ ] Testing
 
 ## Development server

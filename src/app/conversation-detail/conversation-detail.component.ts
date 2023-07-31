@@ -13,4 +13,9 @@ export class ConversationDetailComponent {
   excludeCurrentUser(users: any[]): any[] {
     return users.filter((user) => !user.is_current_user);
   }
+
+  markUnread(conversation: Conversation): void {
+    // if conversation.is_unread is true, pass it to false, if false, pass it to true
+    conversation.is_unread = !conversation.is_unread;
+  }
 }
