@@ -1,13 +1,11 @@
-<div class="chat_box">
-            <div
-                *ngFor="let message of messages"
+<div class="chat_box" #chatbox>
+            <div #chats *ngFor="let message of messages"
                 [ngClass]="{
                     'message': true,
                     'current_user': findUserById(message.user_id)?.is_current_user,
                     'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
                     'no_user': message.user_id === null
-                  }"
-            >
+                  }">
                 <div [ngClass]="{
                     'message_content': true,
                     'current_user': findUserById(message.user_id)?.is_current_user,

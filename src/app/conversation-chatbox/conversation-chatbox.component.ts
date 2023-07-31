@@ -1,31 +1,42 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Conversation, Message, User } from '../models';
 import { ConversationService } from '../conversation.service';
-import { Subscription } from 'rxjs';
-
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-conversation-chatbox',
   templateUrl: './conversation-chatbox.component.html',
   styleUrls: ['./conversation-chatbox.component.scss']
 })
-export class ConversationChatboxComponent implements OnInit, OnChanges{
+export class ConversationChatboxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() conversation!: Conversation;
+  @ViewChild('chatbox') chatbox!: ElementRef;
 
   messages: Message[] = [];
   messageForm!: FormGroup;
 
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.chatbox.nativeElement.scrollTop = this.chatbox.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Error scrolling to bottom:', err);
+    }
+  }
 
   constructor(
     private conversationService: ConversationService,
+    private messageService: MessageService,
     private formBuilder: FormBuilder) {
       this.messageForm = this.formBuilder.group({
         content: ['', Validators.required],
       });
-     }
+    }
 
-  // Preload messages from local data, then fetch and update latest messages from the server
   ngOnInit(): void {
     if (this.conversation) {
       this.messages = this.conversation.messages;
@@ -40,12 +51,10 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
     return this.conversation?.users.find(user => user.id === userId);
   }
 
-  // Used to determine if the current conversation is a one-on-one chat
   isOneOnOneChat(conversation: Conversation): boolean {
     return conversation.users.length === 2;
   }
 
-  // Add a message to the current conversation
   add(conversation: Conversation): void {
     if (this.messageForm.invalid) {
       return;
@@ -58,17 +67,15 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
 
     const user_id = conversation.users.find(user => user.is_current_user)?.id || null;
 
-    this.conversationService
+    this.messageService
       .addMessage(conversation.id, user_id, content)
       .subscribe(message => {
         this.messages.push(message);
-
       });
 
     this.messageForm.reset();
     }
 
-  // OnChanges, clean the message array, load from association and then get the messages from the server
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['conversation']) {
       this.messages = [];
@@ -77,9 +84,8 @@ export class ConversationChatboxComponent implements OnInit, OnChanges{
     }
   }
 
-  // Get the messages of the current conversation
   getMessages(): void {
-    this.conversationService.getMessages(this.conversation.id)
+    this.messageService.getMessages(this.conversation.id)
       .subscribe(messages => {
         this.messages = messages;
       });

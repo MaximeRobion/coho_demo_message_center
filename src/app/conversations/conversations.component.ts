@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Conversation } from '../models';
 import { ConversationService } from '../conversation.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-conversations',
   templateUrl: './conversations.component.html',
   styleUrls: ['./conversations.component.scss']
 })
-export class ConversationsComponent {
+export class ConversationsComponent implements OnInit {
   conversations: Conversation[] = [];
   selectedConversation?: Conversation;
 
-  constructor(private conversationService: ConversationService) { }
+  constructor(
+    private conversationService: ConversationService,
+    private messageService: MessageService ) { }
 
   ngOnInit(): void {
     this.getConversations();
@@ -26,17 +30,7 @@ export class ConversationsComponent {
     this.selectedConversation = conversation;
   }
 
-  // Get the date of the last message
   // TODO: Listen to new messages and update this value
-
-  LastMessage(conversation: Conversation): string {
-    if (conversation.messages.length > 0) {
-      const LastMessage = conversation.messages[conversation.messages.length - 1];
-      return LastMessage.content;
-    }
-    return "";
-  }
-
   LastMessageDate(conversation: Conversation): Date | null {
     if (conversation.messages.length > 0) {
       const LastMessage = conversation.messages[conversation.messages.length - 1];

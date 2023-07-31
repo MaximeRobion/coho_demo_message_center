@@ -7,10 +7,10 @@ ul, li {
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 64vh;
     padding: 16px;
     gap: 16px;
     overflow: scroll;
+    height: 500px;
 }
 
 .send_message {
@@ -100,4 +100,9 @@ ul, li {
 
 mat-form-field.full-width {
     width: 100%;
+}
+
+.sidebar{
+    position: sticky;
+    top: 0;
 }
