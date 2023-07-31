@@ -28,9 +28,10 @@ export class ConversationsComponent implements OnInit {
 
   onSelect(conversation: Conversation): void {
     this.selectedConversation = conversation;
-    // if conversation.is_unread was true, pass it to false
+    // if conversation.is_unread was true, pass it to false (through service)
     if (conversation.is_unread) {
-      conversation.is_unread = false;
+      this.selectedConversation.is_unread = false;
+      this.conversationService.markUnread(this.selectedConversation).subscribe();
     }
   }
 

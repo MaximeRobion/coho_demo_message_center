@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Conversation, Message } from '../models';
+import { ConversationService } from '../conversation.service';
 
 @Component({
   selector: 'app-conversation-detail',
@@ -10,12 +11,16 @@ export class ConversationDetailComponent {
   @Input() conversation?: Conversation;
   @Input() messages: Message[] = [];
 
+  constructor(private conversationService: ConversationService) { }
+
   excludeCurrentUser(users: any[]): any[] {
     return users.filter((user) => !user.is_current_user);
   }
 
-  markUnread(conversation: Conversation): void {
-    // if conversation.is_unread is true, pass it to false, if false, pass it to true
-    conversation.is_unread = !conversation.is_unread;
+  markUnread(): void {
+    if (this.conversation) {
+      this.conversation.is_unread = true;
+      this.conversationService.markUnread(this.conversation).subscribe();
+    }
   }
 }

@@ -29,6 +29,24 @@ export class ConversationService {
     );
   }
 
+  // markUnread: Get the conversation with the given id and set is_unread to true if it was false
+
+  markUnread(conversation: Conversation): Observable<any> {
+    return this.http.put(this.conversationsUrl, conversation, this.httpOptions)
+    .pipe(
+      tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
+      catchError(this.handleError<Conversation>(`markUnread conversation id=${conversation.id}`))
+    );
+  }
+
+  markRead(conversation: Conversation): Observable<any> {
+    return this.http.put(this.conversationsUrl, conversation, this.httpOptions)
+    .pipe(
+      tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
+      catchError(this.handleError<Conversation>(`markRead conversation id=${conversation.id}`))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
