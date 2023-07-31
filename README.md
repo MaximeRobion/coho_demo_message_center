@@ -11,7 +11,9 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Angular Services
 [x] Angular Mat Theming and Components
 [x] Switch to Dark mode
-[ ] Mock http requests with angular-in-memory-web-api
+[x] Mock http requests with angular-in-memory-web-api
+[x] Create new message
+[x] Unread bubbles and mark unread
 [ ] Use routing for mobile views
 [ ] Testing
 

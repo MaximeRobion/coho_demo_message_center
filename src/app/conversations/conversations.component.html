@@ -18,9 +18,12 @@
                         <span>{{ user.fullname }}</span>
                         <span *ngIf="!lastUser">, </span>
                 </ng-container>)</div>
-                <span matListItemMeta>{{LastMessageDate(conversation) | date: 'shortTime'}}</span>
+                <div matListItemMeta>
+                    <span>{{LastMessageDate(conversation) | date: 'shortTime'}}</span>
+                    <div *ngIf="conversation.is_unread"class="unread_badge" color="primary"></div>
+                </div>
             </mat-list-item>
     </mat-nav-list>
 </div>
-<app-conversation-detail [conversation]="selectedConversation" class="conversation_details"></app-conversation-detail>
+<app-conversation-detail [conversation]="selectedConversation"></app-conversation-detail>
 </div>
