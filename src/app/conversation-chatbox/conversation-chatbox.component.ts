@@ -1,15 +1,14 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Conversation, Message, User } from '../models';
+import { Conversation, Message } from '../models';
 import { ConversationService } from '../conversation.service';
-import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-conversation-chatbox',
   templateUrl: './conversation-chatbox.component.html',
   styleUrls: ['./conversation-chatbox.component.scss']
 })
-export class ConversationChatboxComponent implements OnInit, OnChanges, AfterViewChecked {
+export class ConversationChatboxComponent implements OnInit, AfterViewChecked {
   @Input() conversation!: Conversation;
   @ViewChild('chatbox') chatbox!: ElementRef;
 
@@ -30,7 +29,6 @@ export class ConversationChatboxComponent implements OnInit, OnChanges, AfterVie
 
   constructor(
     private conversationService: ConversationService,
-    private messageService: MessageService,
     private formBuilder: FormBuilder) {
       this.messageForm = this.formBuilder.group({
         content: ['', Validators.required],
@@ -38,56 +36,30 @@ export class ConversationChatboxComponent implements OnInit, OnChanges, AfterVie
     }
 
   ngOnInit(): void {
-    if (this.conversation) {
-      this.messages = this.conversation.messages;
-      this.getMessages();
-    }
-  }
-
-  findUserById(userId: number | null): User | undefined {
-    if (userId === null) {
-      return undefined;
-    }
-    return this.conversation?.users.find(user => user.id === userId);
+    this.conversationService.getConversation(this.conversation.id).subscribe((conversation) => {
+      this.conversation = conversation;
+    });
   }
 
   isOneOnOneChat(conversation: Conversation): boolean {
     return conversation.users.length === 2;
   }
 
-  add(conversation: Conversation): void {
+  add(): void {
     if (this.messageForm.invalid) {
       return;
     }
 
-    const content = this.messageForm.get('content')?.value.trim();
-    if (!content) {
-      return;
-    }
+    const newMessage: Message = {
+      id: this.conversation.messages.length + 1,
+      user: this.conversation.users.find(u => u.is_current_user) || null,
+      content: this.messageForm.value.content,
+      created_at: new Date()
+    };
 
-    const user_id = conversation.users.find(user => user.is_current_user)?.id || null;
-
-    this.messageService
-      .addMessage(conversation.id, user_id, content)
-      .subscribe(message => {
-        this.messages.push(message);
-      });
-
+    this.conversation.messages.push(newMessage);
+    console.log('New message:', newMessage);
+    this.conversationService.addMessageToConversation(this.conversation).subscribe();
     this.messageForm.reset();
-    }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['conversation']) {
-      this.messages = [];
-      this.messages = this.conversation.messages;
-      this.getMessages();
-    }
-  }
-
-  getMessages(): void {
-    this.messageService.getMessages(this.conversation.id)
-      .subscribe(messages => {
-        this.messages = messages;
-      });
   }
 }

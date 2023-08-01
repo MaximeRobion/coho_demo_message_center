@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Conversation } from '../models';
+import { Conversation, Property } from '../models';
 import { ConversationService } from '../conversation.service';
-import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-conversations',
@@ -14,8 +13,7 @@ export class ConversationsComponent implements OnInit {
   selectedConversation?: Conversation;
 
   constructor(
-    private conversationService: ConversationService,
-    private messageService: MessageService ) { }
+    private conversationService: ConversationService ) { }
 
   ngOnInit(): void {
     this.getConversations();
@@ -23,25 +21,26 @@ export class ConversationsComponent implements OnInit {
 
   getConversations(): void {
     this.conversationService.getConversations()
-        .subscribe(conversations => this.conversations = conversations);
+        .subscribe(conversations => {
+          this.conversations = conversations
+          console.log('Conversations:', conversations);
+        });
   }
 
   onSelect(conversation: Conversation): void {
     this.selectedConversation = conversation;
-    // if conversation.is_unread was true, pass it to false (through service)
     if (conversation.is_unread) {
       this.selectedConversation.is_unread = false;
       this.conversationService.markUnread(this.selectedConversation).subscribe();
     }
   }
 
-  // TODO: Listen to new messages and update this value
-  LastMessageDate(conversation: Conversation): Date | null {
+  LastMessageDate(conversation: Conversation): Date {
     if (conversation.messages.length > 0) {
-      const LastMessage = conversation.messages[conversation.messages.length - 1];
-      return LastMessage.created_at;
+      return conversation.messages[conversation.messages.length - 1].created_at;
+    } else {
+      return conversation.created_at;
     }
-    return null;
   }
 
   excludeCurrentUser(users: any[]): any[] {

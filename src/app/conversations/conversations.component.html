@@ -13,8 +13,8 @@
     </mat-toolbar>
     <mat-nav-list>
         <mat-list-item *ngFor="let conversation of conversations" (click)="onSelect(conversation)">
-                <a matListItemTitle>{{conversation.subject}}</a>
-                <div matListItemLine>{{conversation.address}} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
+                <a matListItemTitle>{{ conversation.subject }}</a>
+                <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
                         <span>{{ user.fullname }}</span>
                         <span *ngIf="!lastUser">, </span>
                 </ng-container>)</div>

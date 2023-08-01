@@ -1,22 +1,22 @@
 <div class="chat_box" #chatbox>
-            <div #chats *ngFor="let message of messages"
+            <div #chats *ngFor="let message of conversation.messages"
                 [ngClass]="{
                     'message': true,
-                    'current_user': findUserById(message.user_id)?.is_current_user,
-                    'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
-                    'no_user': message.user_id === null
+                    'current_user': message.user?.is_current_user,
+                    'not_current_user': message.user && !message.user.is_current_user,
+                    'no_user': !message.user
                   }">
                 <div [ngClass]="{
                     'message_content': true,
-                    'current_user': findUserById(message.user_id)?.is_current_user,
-                    'not_current_user': findUserById(message.user_id) && !findUserById(message.user_id)?.is_current_user,
-                    'no_user': message.user_id === null
+                    'current_user': message.user?.is_current_user,
+                    'not_current_user': message.user && !message.user.is_current_user,
+                    'no_user': !message.user
                   }">
                     <span *ngIf="conversation
-                                && !isOneOnOneChat(conversation)
-                                && !findUserById(message.user_id)?.is_current_user"
+                                && conversation.users.length != 2
+                                && !message.user?.is_current_user"
                                 class="chat_username">
-                    {{findUserById(message.user_id)?.fullname}}</span>
+                    {{message.user?.fullname}}</span>
                     <div class="content_and_time">
                         <span>{{ message.content }}</span>
                         <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
@@ -24,11 +24,11 @@
                 </div>
             </div>
 </div>
-<!-- TODO invalid color (red) doesn't show -->
 <form
     class="send_message"
     [formGroup]="messageForm"
-    (ngSubmit)="add(conversation)">
+    (ngSubmit)="add()">
+
     <mat-form-field class="full-width">
         <button mat-icon-button matPrefix>
             <mat-icon>attach_file</mat-icon>
