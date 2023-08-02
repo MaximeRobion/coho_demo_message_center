@@ -15,7 +15,7 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Create new message
 [x] Unread bubbles and mark unread
 [x] Rework CRUD paths and use Mockoons to do the requests
-[ ] Filters
+[x] Filters on Properties
 [ ] Use routing for mobile views
 [ ] i18n
 [ ] Pagination/Scroll
