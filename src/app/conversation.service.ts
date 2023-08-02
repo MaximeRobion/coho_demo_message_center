@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 
 import { Conversation, Property } from './models';
 import { environment } from '../environments/environment.development';
@@ -34,6 +34,15 @@ export class ConversationService {
     );
   }
 
+  getConversationsFilteredOnProperty(propertyAddresses: string[]): Observable<Conversation[]> {
+    return this.getConversations().pipe(
+      map((conversations: Conversation[]) =>
+      conversations.filter((conversation: Conversation) => propertyAddresses.includes(conversation.property.address))
+      ),
+      tap(_ => console.log(`fetched conversations with property addresses ${propertyAddresses}`)),
+    );
+  }
+
   markUnread(conversation: Conversation): Observable<any> {
     return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
     .pipe(
@@ -55,6 +64,14 @@ export class ConversationService {
     .pipe(
       tap(_ => console.log(`added message to conversation ${conversation.id}: ${conversation.messages} `)),
       catchError(this.handleError<Conversation>(`addMessageToConversation conversation id=${conversation.id}`))
+    );
+  }
+
+  getProperties(): Observable<Property[]> {
+    return this.http.get<Property[]>(`${environment.apiURL}/properties`)
+    .pipe(
+      tap(_ => console.log('fetched properties')),
+      catchError(this.handleError<Property[]>('getProperties', []))
     );
   }
 

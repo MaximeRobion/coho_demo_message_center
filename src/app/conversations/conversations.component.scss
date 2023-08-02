@@ -39,3 +39,17 @@ app-conversation-detail {
     margin-right: 0px;
     margin-left:auto;
 }
+
+mat-form-field {
+    width: 100%;
+  }
+
+.filters {
+    padding: 16px;
+    width: 100%;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }

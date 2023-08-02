@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Conversation, Property } from '../models';
 import { ConversationService } from '../conversation.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conversations',
@@ -9,25 +10,32 @@ import { ConversationService } from '../conversation.service';
   styleUrls: ['./conversations.component.scss']
 })
 export class ConversationsComponent implements OnInit {
-  conversations: Conversation[] = [];
+  conversations$!: Observable<Conversation[]>;
   selectedConversation?: Conversation;
+  properties: Property[] = [];
+  propertiesForm = new FormControl('');
 
   constructor(
     private conversationService: ConversationService ) { }
 
   ngOnInit(): void {
     this.getConversations();
+    this.getProperties();
   }
 
   getConversations(): void {
-    this.conversationService.getConversations()
-        .subscribe(conversations => {
-          this.conversations = conversations
-          console.log('Conversations:', conversations);
+    this.conversations$ = this.conversationService.getConversations();
+  }
+
+  getProperties(): void {
+    this.conversationService.getProperties()
+        .subscribe(properties => {
+          this.properties = properties
+          console.log('Properties:', properties);
         });
   }
 
-  onSelect(conversation: Conversation): void {
+  onConversationSelect(conversation: Conversation): void {
     this.selectedConversation = conversation;
     if (conversation.is_unread) {
       this.selectedConversation.is_unread = false;
@@ -35,6 +43,16 @@ export class ConversationsComponent implements OnInit {
     }
   }
 
+  onPropertyFilter(selectedProperties: string | null): void {
+    if (!selectedProperties) {
+      this.getConversations(); // When no properties selected, show all conversations
+    } else {
+      const propertyAddresses = selectedProperties.toString().split(',');
+      this.conversations$ = this.conversationService.getConversationsFilteredOnProperty(propertyAddresses);
+    }
+  }
+
+  //TODO Updates date when new message is pushed into a conversation
   LastMessageDate(conversation: Conversation): Date {
     if (conversation.messages.length > 0) {
       return conversation.messages[conversation.messages.length - 1].created_at;

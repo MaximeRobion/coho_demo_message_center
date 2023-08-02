@@ -14,9 +14,10 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Mock http requests with angular-in-memory-web-api
 [x] Create new message
 [x] Unread bubbles and mark unread
+[x] Rework CRUD paths and use Mockoons to do the requests
+[ ] Filters
 [ ] Use routing for mobile views
 [ ] i18n
-[ ] Filters
 [ ] Pagination/Scroll
 [ ] Testing
 

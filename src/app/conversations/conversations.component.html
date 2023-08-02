@@ -11,8 +11,24 @@
             <button mat-menu-item class="mat-typography">View archived conversations</button>
         </mat-menu>
     </mat-toolbar>
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>Properties</mat-label>
+      <mat-select [formControl]="propertiesForm" multiple (selectionChange)="onPropertyFilter(propertiesForm.value)">
+        <mat-select-trigger>
+          {{propertiesForm.value?.[0] || ''}}
+          <span *ngIf="(propertiesForm.value?.length || 0) > 1" class="example-additional-selection">
+            (+{{(propertiesForm.value?.length || 0) - 1}} {{propertiesForm.value?.length === 2 ? 'other' : 'others'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let property of properties" [value]="property.address">
+          {{property.address}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
     <mat-nav-list>
-        <mat-list-item *ngFor="let conversation of conversations" (click)="onSelect(conversation)">
+        <mat-list-item *ngFor="let conversation of conversations$ | async" (click)="onConversationSelect(conversation)">
                 <a matListItemTitle>{{ conversation.subject }}</a>
                 <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
                         <span>{{ user.fullname }}</span>
