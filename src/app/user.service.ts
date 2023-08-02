@@ -20,7 +20,7 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiURL}/users`)
     .pipe(
-      tap(_ => console.log('fetched users')),
+      tap(_ => console.log('Service fetched users', _)),
       catchError(this.handleError<User[]>('getUsers', []))
     );
   }
@@ -36,7 +36,7 @@ export class UserService {
 
         const url = `${environment.apiURL}/users/${current_user?.id}`;
         return this.http.get<User>(url).pipe(
-          tap(_ => console.log('fetched current user')),
+          tap(_ => console.log('Service fetched current user', _)),
           catchError(this.handleError<User>('getCurrentUser'))
         );
       })

@@ -28,10 +28,11 @@
     </mat-form-field>
   </div>
   <!-- TODO add cdk-virtual-scroll-viewport https://material.angular.io/cdk/scrolling/overview -->
-<div *ngIf="(conversations.length || propertiesForm.value === null || propertiesForm.value.toString().trim() === ''); else emptyState"
-  class="list_filled">
+  <!-- If I pick something and there are results, then I show the filtered convos,
+    IF NOT, I move to the next ngIf -->
+  <div *ngIf="(filteredConversations?.length); else allConversations" class="list_filled">
     <mat-nav-list>
-      <mat-list-item *ngFor="let conversation of conversations" (click)="onConversationSelect(conversation)">
+      <mat-list-item *ngFor="let conversation of filteredConversations" (click)="onConversationSelect(conversation)">
           <a matListItemTitle>{{ conversation.subject }}</a>
             <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
                 <span>{{ user.fullname }}</span>
@@ -43,7 +44,28 @@
             </div>
       </mat-list-item>
     </mat-nav-list>
-</div>
+  </div>
+  <!-- If there are no result to my query, but the filter is empty,
+    then I show all conversations, otherwise I go to the next option -->
+  <ng-template #allConversations>
+    <div *ngIf="propertiesForm.value === null || propertiesForm.value.toString().trim() === ''; else emptyState" class="list_filled">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let conversation of conversations" (click)="onConversationSelect(conversation)">
+            <a matListItemTitle>{{ conversation.subject }}</a>
+              <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
+                  <span>{{ user.fullname }}</span>
+                  <span *ngIf="!lastUser">, </span></ng-container>)
+              </div>
+              <div matListItemMeta>
+                <span>{{LastMessageDate(conversation) | date: 'shortTime'}}</span>
+                <div *ngIf="conversation.is_unread"class="unread_badge" color="primary"></div>
+              </div>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </ng-template>
+  <!-- If there NO results to my query and that the properties filter is NOT empty
+  then it means there is nothing found for my serch -->
   <ng-template #emptyState>
     <div class="list_empty">
       <p class="mat-typography">No conversation found. Reset filters to see your conversations.</p>

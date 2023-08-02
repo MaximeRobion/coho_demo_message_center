@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl } from '@angular/forms';
 import { Conversation, Property } from '../models';
 import { ConversationService } from '../conversation.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-conversations',
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ConversationsComponent implements OnInit {
   conversations: Conversation[] = [];
+  filteredConversations: Conversation[] = [];
   selectedConversation?: Conversation;
   properties: Property[] = [];
   propertiesForm = new FormControl('');
@@ -19,47 +20,56 @@ export class ConversationsComponent implements OnInit {
     private conversationService: ConversationService ) { }
 
   ngOnInit(): void {
-    this.getConversations();
     this.getProperties();
+    this.getConversations();
+    console.log('Properties Init:', this.properties);
+    console.log('Conversations Init:', this.conversations);
+    console.log('Filtered Conversations Init:', this.filteredConversations);
   }
 
   getConversations(): void {
-    this.conversationService.getConversations().subscribe((conversations) => {
+    this.conversationService.getConversations()
+    .subscribe((conversations) => {
       this.conversations = conversations;
-      console.log('Conversations:', conversations);
+      console.log('Conversations assigned in the component:', conversations);
     });
   }
 
   getProperties(): void {
-    this.conversationService.getProperties().subscribe(properties => {
+    this.conversationService.getProperties()
+    .subscribe(properties => {
           this.properties = properties
-          console.log('Properties:', properties);
+          console.log('Properties assigned in the component:', properties);
     });
   }
 
-  onConversationSelect(conversation: Conversation): void {
+  onConversationSelect(conversation: Conversation ): void {
     this.selectedConversation = conversation;
+    console.log('Selected Conversation:', this.selectedConversation);
     if (conversation.is_unread) {
       this.selectedConversation.is_unread = false;
       this.conversationService.markUnread(this.selectedConversation).subscribe();
     }
+    console.log('Filtered conversations:', this.filteredConversations);
+    console.log('All conversations:', this.conversations);
   }
 
   onPropertyFilter(selectedProperties: string | null): void {
     if (selectedProperties === null || selectedProperties.toString().trim() === '') {
-      this.getConversations();
-      console.log('No properties selected, getting all conversations');
-    } else {
+      this.filteredConversations = []
+      console.log('No properties selected, emptying filtered conversations', this.filteredConversations);
+    }
+    else {
       const propertyAddresses = selectedProperties.toString().split(',');
-      this.conversationService
-        .getConversationsFilteredOnProperty(propertyAddresses)
-        .subscribe((conversations) => {
-          this.conversations = conversations;
-        });
+      console.log('Property Addresses for filter:', propertyAddresses);
+      this.conversationService.getConversationsFilteredOnProperty(this.conversations, propertyAddresses)
+      .subscribe((conversations) => {
+        this.filteredConversations = conversations;
+      });
+      console.log('Conversations Filtered:', this.filteredConversations)
     }
   }
 
-  //TODO Updates date when new message is pushed into a conversation
   LastMessageDate(conversation: Conversation): Date {
     if (conversation.messages.length > 0) {
       return conversation.messages[conversation.messages.length - 1].created_at;

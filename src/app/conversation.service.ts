@@ -21,7 +21,7 @@ export class ConversationService {
   getConversations(): Observable<Conversation[]> {
     return this.http.get<Conversation[]>(`${environment.apiURL}/conversations`)
     .pipe(
-      tap(_ => console.log('fetched conversations')),
+      tap(_ => console.log('Service fetched conversations', _)),
       catchError(this.handleError<Conversation[]>('getConversations', []))
     );
   }
@@ -29,23 +29,13 @@ export class ConversationService {
   getConversation(id: number): Observable<Conversation> {
     return this.http.get<Conversation>(`${environment.apiURL}/conversations/${id}`)
     .pipe(
-      tap(_ => console.log(`fetched conversation id=${id}`)),
+      tap(_ => console.log(`Service fetched conversation id=${id}`, _)),
       catchError(this.handleError<Conversation>(`getConversation id=${id}`))
     );
   }
 
-  getConversationsFilteredOnProperty(propertyAddresses: string[]): Observable<Conversation[]> {
-    return this.getConversations().pipe(
-      map((conversations: Conversation[]) => {
-        if (Array.isArray(conversations)) {
-          return conversations.filter((conversation: Conversation) => propertyAddresses.includes(conversation.property.address));
-        } else {
-          console.error('Conversations is not an array:', conversations);
-          return [];
-        }
-      }),
-      tap(_ => console.log(`fetched conversations with property addresses ${propertyAddresses}`)),
-    );
+  getConversationsFilteredOnProperty(conversations: Conversation[], propertyAddresses: string[]): Observable<Conversation[]> {
+    return of(conversations.filter(conversation => propertyAddresses.includes(conversation.property.address)));
   }
 
   markUnread(conversation: Conversation): Observable<any> {
@@ -75,7 +65,7 @@ export class ConversationService {
   getProperties(): Observable<Property[]> {
     return this.http.get<Property[]>(`${environment.apiURL}/properties`)
     .pipe(
-      tap(_ => console.log('fetched properties')),
+      tap(_ => console.log('Service fetched properties', _)),
       catchError(this.handleError<Property[]>('getProperties', []))
     );
   }
