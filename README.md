@@ -7,19 +7,19 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This is a learning project starting from the Message Centre of Coho.life, in order to get discover and get better at Angular.
 
 ### Things I want to do
-[x] Mocking and Modeling
-[x] Angular Services
-[x] Angular Mat Theming and Components
-[x] Switch to Dark mode
-[x] Mock http requests with angular-in-memory-web-api
-[x] Create new message
-[x] Unread bubbles and mark unread
-[x] Rework CRUD paths and use Mockoons to do the requests >
-[x] Filters on Properties, with empty state
-[ ] i18n
-[ ] Use routing for mobile views
-[ ] Testing
-[ ] Pagination/Scroll for chats and conversation: https://material.angular.io/cdk/scrolling/overview
+- [x] Mocking and Modeling
+- [x] Angular Services
+- [x] Angular Mat Theming and Components
+- [x] Switch to Dark mode
+- [x] Mock http requests with angular-in-memory-web-api
+- [x] Create new message
+- [x] Unread bubbles and mark unread
+- [x] Rework CRUD paths and use Mockoons to do the requests >
+- [x] Filters on Properties, with empty state
+- [ ] i18n
+- [ ] Use routing for mobile views
+- [ ] Testing
+- [ ] Pagination/Scroll for chats and conversation: https://material.angular.io/cdk/scrolling/overview
 
 ## Mocking the Restful API
 
