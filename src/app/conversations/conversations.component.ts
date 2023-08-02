@@ -44,7 +44,7 @@ export class ConversationsComponent implements OnInit {
   }
 
   onPropertyFilter(selectedProperties: string | null): void {
-    if (!selectedProperties) {
+    if (selectedProperties === null || selectedProperties.toString().trim() === "") {
       this.getConversations(); // When no properties selected, show all conversations
     } else {
       const propertyAddresses = selectedProperties.toString().split(',');

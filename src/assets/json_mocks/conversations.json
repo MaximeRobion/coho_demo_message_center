@@ -1,0 +1,122 @@
+[
+    {
+    "id": 1,
+    "created_at": "2023-07-25 08:30:00",
+    "subject": "Viewing Unit 1",
+    "is_unread": true,
+    "users": [
+                {
+                  "id": 1,
+                  "fullname": "Maxime Robion",
+                  "email": "max.robion@hey.com",
+                  "description": "Frontend Developer",
+                  "photo": "../assets/pp_maxime.jpg",
+                  "is_current_user": true
+                },
+                {
+                "id": 4,
+                "fullname": "Zack Bensalem",
+                "email": "zack@gmail.com",
+                "description": "Avid reader of science fiction, but also loves to get out of the house.",
+                "photo": "../assets/pp_zack.jpg",
+                "is_current_user": false
+                }
+              ],
+    "property": {
+                      "id": 1,
+                      "address": "123 Main St",
+                      "zipcode": "12345",
+                      "city": "London",
+                      "country": "RU"
+                  },
+    "messages":
+              [
+                {
+                  "id": 1,
+                  "content": "Zachery (zach*****@gmail.com) was invited to a viewing",
+                  "created_at": "2023-07-25 10:00:00"
+                },
+                {
+                  "id": 2,
+                  "content": "Hey, how are you?",
+                  "created_at": "2023-07-25 10:30:00",
+                  "user":{
+                            "id": 4,
+                            "fullname": "Zack Bensalem",
+                            "email": "zack@gmail.com",
+                            "description": "Avid reader of science fiction, but also loves to get out of the house.",
+                            "photo": "../assets/pp_zack.jpg",
+                            "is_current_user": false
+                            }
+                },
+                {
+                  "id": 3,
+                  "content": "Hey, all good. What time for the viewing?",
+                  "created_at": "2023-07-25 10:40:00",
+                  "user":{
+                            "id": 1,
+                            "fullname": "Maxime Robion",
+                            "email": "max.robion@hey.com",
+                            "description": "Frontend Developer",
+                            "photo": "../assets/pp_maxime.jpg",
+                            "is_current_user": true
+                          }
+                }
+              ]
+    },
+    {
+      "id": 2,
+      "created_at": "2023-07-29 17:00:00",
+      "subject": "Cleaning",
+      "is_unread": false,
+      "users": [
+                {
+                  "id": 1,
+                  "fullname": "Maxime Robion",
+                  "email": "max.robion@hey.com",
+                  "description": "Frontend Developer",
+                  "photo": "../assets/pp_maxime.jpg",
+                  "is_current_user": true
+                },
+                {
+                  "id": 2,
+                  "fullname": "Milan Walters",
+                  "email": "milan.walters@gmail.com",
+                  "description": "Male, Mid 20s, youth worker. I can really pull a rabbit out of a hat",
+                  "photo": "../assets/pp_milan.jpg",
+                  "is_current_user": false
+                },
+                {
+                  "id": 3,
+                  "fullname": "Charlotte Johnson",
+                  "email": "c.johnson@gmail.com",
+                  "description": "Introvert... but willing to discuss cats at length.",
+                  "photo": "../assets/pp_charlotte.jpg",
+                  "is_current_user": false
+                }
+              ],
+      "property": {
+                      "id":2,
+                      "address": "Calle Covarrubias 26",
+                      "zipcode": "28010",
+                      "city": "Madrid",
+                      "country": "ES"
+                    },
+      "messages": [
+                    {
+                        "id": 4,
+                        "content": "The cleaning lady will come tomorrow at noon",
+                        "created_at": "2023-07-29 17:05:00",
+                        "user":
+                                {
+                                "id": 1,
+                                "fullname": "Maxime Robion",
+                                "email": "max.robion@hey.com",
+                                "description": "Frontend Developer",
+                                "photo": "../assets/pp_maxime.jpg",
+                                "is_current_user": true
+                                }
+                        }
+                  ]
+    }
+  ]

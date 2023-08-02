@@ -1,0 +1,179 @@
+{
+  "uuid": "69a000d1-45f7-46ad-b09e-026c85218277",
+  "lastMigration": 28,
+  "name": "Chat app",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "a8ff76cf-4698-435f-a507-dad45d070a17",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "f9cfaa2c-b475-4432-a34b-1a7665fc8a9a",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "fm0t",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "6b2b692f-ed42-48da-905e-f91166b5df9e",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "properties",
+      "responses": [
+        {
+          "uuid": "2bf5cc5d-809d-416f-8fdd-05ac09586e97",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "rh2i",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "f1fd367d-3b55-4892-93f9-5d530f9e0a4d",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "conversations",
+      "responses": [
+        {
+          "uuid": "2daa38cd-00da-43be-8064-674e99d5e41e",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "dopg",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "a8ff76cf-4698-435f-a507-dad45d070a17"
+    },
+    {
+      "type": "route",
+      "uuid": "6b2b692f-ed42-48da-905e-f91166b5df9e"
+    },
+    {
+      "type": "route",
+      "uuid": "f1fd367d-3b55-4892-93f9-5d530f9e0a4d"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "2b7140dc-27b8-4f79-91f2-a958b062fcd7",
+      "id": "fm0t",
+      "name": "Users",
+      "documentation": "",
+      "value": "[\n  {\n        \"id\": 1,\n        \"fullname\": \"Maxime Robion\",\n        \"email\": \"max.robion@hey.com\",\n        \"description\": \"Frontend Developer\",\n        \"photo\": \"../assets/pp_maxime.jpg\",\n        \"is_current_user\": true\n    },\n    {\n        \"id\": 2,\n        \"fullname\": \"Milan Walters\",\n        \"email\": \"milan.walters@gmail.com\",\n        \"description\": \"Male, Mid 20s, youth worker. I can really pull a rabbit out of a hat\",\n        \"photo\": \"../assets/pp_milan.jpg\",\n        \"is_current_user\": false\n      },\n      {\n        \"id\": 3,\n        \"fullname\": \"Charlotte Johnson\",\n        \"email\": \"c.johnson@gmail.com\",\n        \"description\": \"Introvert... but willing to discuss cats at length.\",\n        \"photo\": \"../assets/pp_charlotte.jpg\",\n        \"is_current_user\": false\n      },\n      {\n        \"id\": 4,\n        \"fullname\": \"Zack Bensalem\",\n        \"email\": \"zack@gmail.com\",\n        \"description\": \"Avid reader of science fiction, but also loves to get out of the house.\",\n        \"photo\": \"../assets/pp_zack.jpg\",\n        \"is_current_user\": false\n      }\n]"
+    },
+    {
+      "uuid": "a5b0629f-2d7f-4b90-bbfc-fc8271328a82",
+      "id": "rh2i",
+      "name": "Properties",
+      "documentation": "",
+      "value": "[\n    {\n    \"id\": 1,\n    \"address\": \"123 Main St\",\n    \"zipcode\": \"12345\",\n    \"city\": \"London\",\n    \"country\": \"RU\"\n  },\n  {\n    \"id\":2,\n    \"address\": \"Calle Covarrubias 26\",\n    \"zipcode\": \"28010\",\n    \"city\": \"Madrid\",\n    \"country\": \"ES\"\n  },\n  {\n    \"id\":3,\n    \"address\": \"53 rue de la Fraternité\",\n    \"zipcode\": \"94120\",\n    \"city\": \"Fontenay-sous-Bois\",\n    \"country\": \"FR\"\n  }\n]"
+    },
+    {
+      "uuid": "a9fbcecc-7027-4a30-a766-29694235fdd5",
+      "id": "dopg",
+      "name": "Conversations",
+      "documentation": "",
+      "value": "[\n  {\n  \"id\": 1,\n  \"created_at\": \"2023-07-25 08:30:00\",\n  \"subject\": \"Viewing Unit 1\",\n  \"is_unread\": true,\n  \"users\": [\n              {\n                \"id\": 1,\n                \"fullname\": \"Maxime Robion\",\n                \"email\": \"max.robion@hey.com\",\n                \"description\": \"Frontend Developer\",\n                \"photo\": \"../assets/pp_maxime.jpg\",\n                \"is_current_user\": true\n              },\n              {\n              \"id\": 4,\n              \"fullname\": \"Zack Bensalem\",\n              \"email\": \"zack@gmail.com\",\n              \"description\": \"Avid reader of science fiction, but also loves to get out of the house.\",\n              \"photo\": \"../assets/pp_zack.jpg\",\n              \"is_current_user\": false\n              }\n            ],\n  \"property\": {\n                    \"id\": 1,\n                    \"address\": \"123 Main St\",\n                    \"zipcode\": \"12345\",\n                    \"city\": \"London\",\n                    \"country\": \"RU\"\n                },\n  \"messages\": \n            [\n              {\n                \"id\": 1,\n                \"content\": \"Zachery (zach*****@gmail.com) was invited to a viewing\",\n                \"created_at\": \"2023-07-25 10:00:00\"\n              },\n              {\n                \"id\": 2,\n                \"content\": \"Hey, how are you?\",\n                \"created_at\": \"2023-07-25 10:30:00\",\n                \"user\":{\n                          \"id\": 4,\n                          \"fullname\": \"Zack Bensalem\",\n                          \"email\": \"zack@gmail.com\",\n                          \"description\": \"Avid reader of science fiction, but also loves to get out of the house.\",\n                          \"photo\": \"../assets/pp_zack.jpg\",\n                          \"is_current_user\": false\n                          }\n              },\n              {\n                \"id\": 3,\n                \"content\": \"Hey, all good. What time for the viewing?\",\n                \"created_at\": \"2023-07-25 10:40:00\",\n                \"user\":{\n                          \"id\": 1,\n                          \"fullname\": \"Maxime Robion\",\n                          \"email\": \"max.robion@hey.com\",\n                          \"description\": \"Frontend Developer\",\n                          \"photo\": \"../assets/pp_maxime.jpg\",\n                          \"is_current_user\": true\n                        }\n              }\n            ]\n  },\n  {\n    \"id\": 2,\n    \"created_at\": \"2023-07-29 17:00:00\",\n    \"subject\": \"Cleaning\",\n    \"is_unread\": false,\n    \"users\": [\n              {\n                \"id\": 1,\n                \"fullname\": \"Maxime Robion\",\n                \"email\": \"max.robion@hey.com\",\n                \"description\": \"Frontend Developer\",\n                \"photo\": \"../assets/pp_maxime.jpg\",\n                \"is_current_user\": true\n              },\n              {\n                \"id\": 2,\n                \"fullname\": \"Milan Walters\",\n                \"email\": \"milan.walters@gmail.com\",\n                \"description\": \"Male, Mid 20s, youth worker. I can really pull a rabbit out of a hat\",\n                \"photo\": \"../assets/pp_milan.jpg\",\n                \"is_current_user\": false\n              },\n              {\n                \"id\": 3,\n                \"fullname\": \"Charlotte Johnson\",\n                \"email\": \"c.johnson@gmail.com\",\n                \"description\": \"Introvert... but willing to discuss cats at length.\",\n                \"photo\": \"../assets/pp_charlotte.jpg\",\n                \"is_current_user\": false\n              }\n            ],\n    \"property\": {\n                    \"id\":2,\n                    \"address\": \"Calle Covarrubias 26\",\n                    \"zipcode\": \"28010\",\n                    \"city\": \"Madrid\",\n                    \"country\": \"ES\"\n                  },\n    \"messages\": [ \n                  {\n                      \"id\": 4,\n                      \"content\": \"The cleaning lady will come tomorrow at noon\",\n                      \"created_at\": \"2023-07-29 17:05:00\",\n                      \"user\":\n                              {\n                              \"id\": 1,\n                              \"fullname\": \"Maxime Robion\",\n                              \"email\": \"max.robion@hey.com\",\n                              \"description\": \"Frontend Developer\",\n                              \"photo\": \"../assets/pp_maxime.jpg\",\n                              \"is_current_user\": true\n                              }\n                      }\n                ]\n  }\n]\n"
+    }
+  ]
+}

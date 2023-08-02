@@ -1,0 +1,23 @@
+[
+    {
+    "id": 1,
+    "address": "123 Main St",
+    "zipcode": "12345",
+    "city": "London",
+    "country": "RU"
+  },
+  {
+    "id":2,
+    "address": "Calle Covarrubias 26",
+    "zipcode": "28010",
+    "city": "Madrid",
+    "country": "ES"
+  },
+  {
+    "id":3,
+    "address": "53 rue de la Fraternité",
+    "zipcode": "94120",
+    "city": "Fontenay-sous-Bois",
+    "country": "FR"
+  }
+]

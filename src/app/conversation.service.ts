@@ -36,9 +36,18 @@ export class ConversationService {
 
   getConversationsFilteredOnProperty(propertyAddresses: string[]): Observable<Conversation[]> {
     return this.getConversations().pipe(
-      map((conversations: Conversation[]) =>
-      conversations.filter((conversation: Conversation) => propertyAddresses.includes(conversation.property.address))
-      ),
+      catchError((error) => {
+        console.error('Error fetching conversations:', error);
+        return of([]); // Return an empty array in case of error
+      }),
+      map((conversations: Conversation[]) => {
+        if (Array.isArray(conversations)) {
+          return conversations.filter((conversation: Conversation) => propertyAddresses.includes(conversation.property.address));
+        } else {
+          console.error('Conversations is not an array:', conversations);
+          return [];
+        }
+      }),
       tap(_ => console.log(`fetched conversations with property addresses ${propertyAddresses}`)),
     );
   }
