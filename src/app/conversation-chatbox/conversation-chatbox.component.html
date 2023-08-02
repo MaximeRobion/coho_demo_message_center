@@ -1,36 +1,25 @@
-
-<!-- TODO: Use virtual scroll for unloading the server: https://material.angular.io/cdk/scrolling/overview -->
+<!-- TODO add cdk-virtual-scroll-viewport https://material.angular.io/cdk/scrolling/overview -->
 <div class="chat_box" #chatbox>
-            <div #chats *ngFor="let message of conversation.messages"
-                [ngClass]="{
-                    'message': true,
+    <div #chats *ngFor="let message of conversation.messages"
+    [ngClass]="{'message': true,
                     'current_user': message.user?.is_current_user,
                     'not_current_user': message.user && !message.user.is_current_user,
-                    'no_user': !message.user
-                  }">
-                <div [ngClass]="{
-                    'message_content': true,
-                    'current_user': message.user?.is_current_user,
-                    'not_current_user': message.user && !message.user.is_current_user,
-                    'no_user': !message.user
-                  }">
-                    <span *ngIf="conversation
-                                && conversation.users.length != 2
-                                && !message.user?.is_current_user"
-                                class="chat_username">
-                    {{message.user?.fullname}}</span>
-                    <div class="content_and_time">
-                        <span>{{ message.content }}</span>
-                        <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
-                    </div>
-                </div>
+                    'no_user': !message.user}">
+        <div [ngClass]="{'message_content': true,
+                        'current_user': message.user?.is_current_user,
+                        'not_current_user': message.user && !message.user.is_current_user,
+                        'no_user': !message.user}">
+            <span *ngIf="conversation && conversation.users.length != 2 && !message.user?.is_current_user" class="chat_username">
+                {{message.user?.fullname}}
+            </span>
+            <div class="content_and_time">
+                <span>{{ message.content }}</span>
+                <span class="message_time">{{ message.created_at | date:'shortTime' }}</span>
             </div>
+        </div>
+    </div>
 </div>
-<form
-    class="send_message"
-    [formGroup]="messageForm"
-    (ngSubmit)="add()">
-
+<form class="send_message" [formGroup]="messageForm" (ngSubmit)="add()">
     <mat-form-field class="full-width">
         <button mat-icon-button matPrefix>
             <mat-icon>attach_file</mat-icon>

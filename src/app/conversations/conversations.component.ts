@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl } from '@angular/forms';
 import { Conversation, Property } from '../models';
 import { ConversationService } from '../conversation.service';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./conversations.component.scss']
 })
 export class ConversationsComponent implements OnInit {
-  conversations$!: Observable<Conversation[]>;
+  conversations: Conversation[] = [];
   selectedConversation?: Conversation;
   properties: Property[] = [];
   propertiesForm = new FormControl('');
@@ -24,15 +24,17 @@ export class ConversationsComponent implements OnInit {
   }
 
   getConversations(): void {
-    this.conversations$ = this.conversationService.getConversations();
+    this.conversationService.getConversations().subscribe((conversations) => {
+      this.conversations = conversations;
+      console.log('Conversations:', conversations);
+    });
   }
 
   getProperties(): void {
-    this.conversationService.getProperties()
-        .subscribe(properties => {
+    this.conversationService.getProperties().subscribe(properties => {
           this.properties = properties
           console.log('Properties:', properties);
-        });
+    });
   }
 
   onConversationSelect(conversation: Conversation): void {
@@ -44,11 +46,16 @@ export class ConversationsComponent implements OnInit {
   }
 
   onPropertyFilter(selectedProperties: string | null): void {
-    if (selectedProperties === null || selectedProperties.toString().trim() === "") {
-      this.getConversations(); // When no properties selected, show all conversations
+    if (selectedProperties === null || selectedProperties.toString().trim() === '') {
+      this.getConversations();
+      console.log('No properties selected, getting all conversations');
     } else {
       const propertyAddresses = selectedProperties.toString().split(',');
-      this.conversations$ = this.conversationService.getConversationsFilteredOnProperty(propertyAddresses);
+      this.conversationService
+        .getConversationsFilteredOnProperty(propertyAddresses)
+        .subscribe((conversations) => {
+          this.conversations = conversations;
+        });
     }
   }
 

@@ -16,10 +16,10 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Unread bubbles and mark unread
 [x] Rework CRUD paths and use Mockoons to do the requests >
 [x] Filters on Properties, with empty state
-[ ] Pagination/Scroll for chat
-[ ] Use routing for mobile views
 [ ] i18n
+[ ] Use routing for mobile views
 [ ] Testing
+[ ] Pagination/Scroll for chats and conversation: https://material.angular.io/cdk/scrolling/overview
 
 ## Mocking the Restful API
 
