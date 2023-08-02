@@ -8,3 +8,9 @@
     height: calc(100vh - 64px); // 64px is the height of the header
     width: 100%;
 }
+img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+}

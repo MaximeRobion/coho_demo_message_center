@@ -14,8 +14,23 @@ This is a learning project starting from the Message Centre of Coho.life, in ord
 [x] Mock http requests with angular-in-memory-web-api
 [x] Create new message
 [x] Unread bubbles and mark unread
+[x] Rework CRUD paths and use Mockoons to do the requests >
+[x] Filters on Properties, with empty state
+[ ] i18n
 [ ] Use routing for mobile views
 [ ] Testing
+[ ] Pagination/Scroll for chats and conversation: https://material.angular.io/cdk/scrolling/overview
+
+## Mocking the Restful API
+
+Since `angular-in-memory-web-api` had some limitation, I used (Mockoons)[https://mockoon.com] in order to mock the REST API. You will need to set it up for dev and demo purposes.
+
+1. Download Mockoons
+2. In Mockoons, instead of creating a new environement, click on the folder icon in order to open one.
+2. In this repo, find src/assets/chat_app.json, and use it for the import in Mockoons.
+3. You should now see 3 routes with CRUD operations, and 3 Data files: Users, Conversations and Properties. If this doesn't work, I stored the data for all 3 jsons in this repo, in src/assets/json_mocks. Follow the mockoons documentation to create 3 CRUD routes, using as Data the 3 json mocks in the repo.
+4. Make sure this is running on localhost:3001/
+5. Click on Start server, you're all set!
 
 ## Development server
 

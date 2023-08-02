@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 
-import { Conversation, Message, User } from './models';
-import { CONVERSATIONS } from './mocks';
-
+import { Conversation, Property } from './models';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +14,42 @@ import { CONVERSATIONS } from './mocks';
 export class ConversationService {
   constructor(private http: HttpClient) { }
 
-  private conversationsUrl = 'api/conversations';
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getConversations(): Observable<Conversation[]> {
-    return this.http.get<Conversation[]>(this.conversationsUrl)
+    return this.http.get<Conversation[]>(`${environment.apiURL}/conversations`)
     .pipe(
       tap(_ => console.log('fetched conversations')),
       catchError(this.handleError<Conversation[]>('getConversations', []))
     );
   }
 
-  // markUnread: Get the conversation with the given id and set is_unread to true if it was false
+  getConversation(id: number): Observable<Conversation> {
+    return this.http.get<Conversation>(`${environment.apiURL}/conversations/${id}`)
+    .pipe(
+      tap(_ => console.log(`fetched conversation id=${id}`)),
+      catchError(this.handleError<Conversation>(`getConversation id=${id}`))
+    );
+  }
+
+  getConversationsFilteredOnProperty(propertyAddresses: string[]): Observable<Conversation[]> {
+    return this.getConversations().pipe(
+      map((conversations: Conversation[]) => {
+        if (Array.isArray(conversations)) {
+          return conversations.filter((conversation: Conversation) => propertyAddresses.includes(conversation.property.address));
+        } else {
+          console.error('Conversations is not an array:', conversations);
+          return [];
+        }
+      }),
+      tap(_ => console.log(`fetched conversations with property addresses ${propertyAddresses}`)),
+    );
+  }
 
   markUnread(conversation: Conversation): Observable<any> {
-    return this.http.put(this.conversationsUrl, conversation, this.httpOptions)
+    return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
     .pipe(
       tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
       catchError(this.handleError<Conversation>(`markUnread conversation id=${conversation.id}`))
@@ -40,10 +57,26 @@ export class ConversationService {
   }
 
   markRead(conversation: Conversation): Observable<any> {
-    return this.http.put(this.conversationsUrl, conversation, this.httpOptions)
+    return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
     .pipe(
       tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
       catchError(this.handleError<Conversation>(`markRead conversation id=${conversation.id}`))
+    );
+  }
+
+  addMessageToConversation(conversation: Conversation): Observable<any> {
+    return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
+    .pipe(
+      tap(_ => console.log(`added message to conversation ${conversation.id}: ${conversation.messages} `)),
+      catchError(this.handleError<Conversation>(`addMessageToConversation conversation id=${conversation.id}`))
+    );
+  }
+
+  getProperties(): Observable<Property[]> {
+    return this.http.get<Property[]>(`${environment.apiURL}/properties`)
+    .pipe(
+      tap(_ => console.log('fetched properties')),
+      catchError(this.handleError<Property[]>('getProperties', []))
     );
   }
 

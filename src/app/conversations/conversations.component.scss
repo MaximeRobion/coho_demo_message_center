@@ -39,3 +39,31 @@ app-conversation-detail {
     margin-right: 0px;
     margin-left:auto;
 }
+
+mat-form-field {
+    width: 100%;
+}
+
+.list_filled {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.list_empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+}
+
+.filters {
+    padding: 16px;
+    width: 100%;
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }

@@ -1,3 +1,11 @@
+export interface Property {
+  id: number;
+  address: string;
+  zipcode: string;
+  city: string;
+  country: string;
+}
+
 export interface User {
   id: number;
   fullname: string;
@@ -10,16 +18,16 @@ export interface User {
 export interface Conversation {
     id: number;
     subject: string;
-    address: string;
     users: User[];
-    messages: Message[];
     is_unread: boolean;
+    property: Property;
+    messages: Message[];
+    created_at: Date;
 }
 
 export interface Message {
   id: number;
-  conversation_id: number;
-  user_id: number | null;
+  user: User | null;
   content: string;
   created_at: Date;
 }

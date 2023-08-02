@@ -4,5 +4,6 @@
     <button mat-icon-button (click)="toggleTheme()">
         <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
+    <img matIcon src="{{ current_user?.photo }}" alt="{{ current_user?.fullname }}">
 </mat-toolbar>
 <app-conversations class="main_container mat-app-background"></app-conversations>
