@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import {FormControl } from '@angular/forms';
 import { Conversation, Property } from '../models';
 import { ConversationService } from '../conversation.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conversations',
@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./conversations.component.scss']
 })
 export class ConversationsComponent implements OnInit {
-  conversations: Conversation[] = [];
+  conversations$: Observable<Conversation[]> = this.conversationService.getConversations();
   filteredConversations: Conversation[] = [];
   selectedConversation?: Conversation;
   properties: Property[] = [];
@@ -21,18 +21,20 @@ export class ConversationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProperties();
-    this.getConversations();
     console.log('Properties Init:', this.properties);
-    console.log('Conversations Init:', this.conversations);
+    console.log('Conversations Init:', this.conversations$);
     console.log('Filtered Conversations Init:', this.filteredConversations);
+    console.log('Selected Conversations Init:', this.filteredConversations);
   }
 
   getConversations(): void {
     this.conversationService.getConversations()
-    .subscribe((conversations) => {
-      this.conversations = conversations;
-      console.log('Conversations assigned in the component:', conversations);
-    });
+    // .subscribe((conversations) => {
+    //   this.conversations = conversations;
+      console.log('Conversations assigned in the component:', this.conversations$);
+      console.log('Filtered conversations:', this.filteredConversations);
+      console.log('Selected conversation:', this.selectedConversation);
+    // });
   }
 
   getProperties(): void {
@@ -48,10 +50,8 @@ export class ConversationsComponent implements OnInit {
     console.log('Selected Conversation:', this.selectedConversation);
     if (conversation.is_unread) {
       this.selectedConversation.is_unread = false;
-      this.conversationService.markUnread(this.selectedConversation).subscribe();
+      this.conversationService.markRead(this.selectedConversation).subscribe();
     }
-    console.log('Filtered conversations:', this.filteredConversations);
-    console.log('All conversations:', this.conversations);
   }
 
   onPropertyFilter(selectedProperties: string | null): void {
@@ -62,11 +62,11 @@ export class ConversationsComponent implements OnInit {
     else {
       const propertyAddresses = selectedProperties.toString().split(',');
       console.log('Property Addresses for filter:', propertyAddresses);
-      this.conversationService.getConversationsFilteredOnProperty(this.conversations, propertyAddresses)
+      this.conversationService.getConversationsFilteredOnProperty(propertyAddresses)
       .subscribe((conversations) => {
         this.filteredConversations = conversations;
+        console.log('Conversations Filtered:', this.filteredConversations)
       });
-      console.log('Conversations Filtered:', this.filteredConversations)
     }
   }
 

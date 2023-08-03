@@ -27,14 +27,14 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <!-- TODO add cdk-virtual-scroll-viewport https://material.angular.io/cdk/scrolling/overview -->
   <!-- If I pick something and there are results, then I show the filtered convos,
     IF NOT, I move to the next ngIf -->
   <div *ngIf="(filteredConversations?.length); else allConversations" class="list_filled">
     <mat-nav-list>
       <mat-list-item *ngFor="let conversation of filteredConversations" (click)="onConversationSelect(conversation)">
           <a matListItemTitle>{{ conversation.subject }}</a>
-            <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
+            <div matListItemLine>{{ conversation.property.address }}
+              (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
                 <span>{{ user.fullname }}</span>
                 <span *ngIf="!lastUser">, </span></ng-container>)
             </div>
@@ -50,7 +50,7 @@
   <ng-template #allConversations>
     <div *ngIf="propertiesForm.value === null || propertiesForm.value.toString().trim() === ''; else emptyState" class="list_filled">
       <mat-nav-list>
-        <mat-list-item *ngFor="let conversation of conversations" (click)="onConversationSelect(conversation)">
+        <mat-list-item *ngFor="let conversation of conversations$ | async" (click)="onConversationSelect(conversation)">
             <a matListItemTitle>{{ conversation.subject }}</a>
               <div matListItemLine>{{ conversation.property.address }} (<ng-container *ngFor="let user of excludeCurrentUser(conversation.users); let lastUser = last">
                   <span>{{ user.fullname }}</span>

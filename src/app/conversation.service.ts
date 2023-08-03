@@ -34,12 +34,31 @@ export class ConversationService {
     );
   }
 
-  getConversationsFilteredOnProperty(conversations: Conversation[], propertyAddresses: string[]): Observable<Conversation[]> {
-    return of(conversations.filter(conversation => propertyAddresses.includes(conversation.property.address)));
+  getConversationsFilteredOnProperty(propertyAddresses: string[]): Observable<Conversation[]> {
+    return this.getConversations()
+    .pipe(
+      tap(conversations => console.log('Type of conversations:', typeof conversations, 'Content:', conversations)),
+      switchMap(conversations => this.filterConversationsOnProperty(conversations, propertyAddresses))
+    );
+  }
+
+  private filterConversationsOnProperty(conversations: Conversation[], propertyAddresses: string[]): Observable<Conversation[]> {
+    if (!propertyAddresses || propertyAddresses.length === 0) {
+      return of(conversations);
+    }
+
+    return this.http.get<Property[]>(`${environment.apiURL}/properties`)
+    .pipe(
+      map(properties => properties.filter(property => propertyAddresses.includes(property.address))),
+      map(properties => properties.map(property => property.id)),
+      map(propertyIds => conversations.filter(conversation => propertyIds.includes(conversation.property.id))),
+      tap(_ => console.log(`Service filtered conversations on property addresses ${propertyAddresses}`, _)),
+      catchError(this.handleError<Conversation[]>('filterConversationsOnProperty', []))
+    );
   }
 
   markUnread(conversation: Conversation): Observable<any> {
-    return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
+    return this.http.put(`${environment.apiURL}/conversations/${conversation.id}`, conversation, this.httpOptions)
     .pipe(
       tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
       catchError(this.handleError<Conversation>(`markUnread conversation id=${conversation.id}`))
@@ -47,7 +66,7 @@ export class ConversationService {
   }
 
   markRead(conversation: Conversation): Observable<any> {
-    return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
+    return this.http.put(`${environment.apiURL}/conversations/${conversation.id}`, conversation, this.httpOptions)
     .pipe(
       tap(_ => console.log(`updated conversation ${conversation.id}: conversation is unread? ${conversation.is_unread}`)),
       catchError(this.handleError<Conversation>(`markRead conversation id=${conversation.id}`))
@@ -57,7 +76,7 @@ export class ConversationService {
   addMessageToConversation(conversation: Conversation): Observable<any> {
     return this.http.put(`${environment.apiURL}/conversations`, conversation, this.httpOptions)
     .pipe(
-      tap(_ => console.log(`added message to conversation ${conversation.id}: ${conversation.messages} `)),
+      tap(_ => console.log(`added message to conversation ${conversation.id}:`, _)),
       catchError(this.handleError<Conversation>(`addMessageToConversation conversation id=${conversation.id}`))
     );
   }
